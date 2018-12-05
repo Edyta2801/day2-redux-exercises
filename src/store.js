@@ -5,8 +5,9 @@ import counter from './state/counter'
 
 
 const rootReducer = combineReducers({
-    reducersWithoutShortcut: reducer1,
-    reducer2
+    // reducersWithoutShortcut: reducer1,
+    // reducer2,
+    counter
 })
 
 
