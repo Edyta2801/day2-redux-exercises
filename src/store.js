@@ -1,30 +1,18 @@
 import { createStore, combineReducers } from 'redux'
+import counter from './state/counter'
 
 
 
-const reducer1 = () => {
-    return {
-        name: 'Ala'
-    }
-}
 
-
-const reducer2 = () => {
-    return {
-        name: 'Ola'
-    }
-}
-
-const rootReducers({
+const rootReducer = combineReducers({
     reducersWithoutShortcut: reducer1,
     reducer2
 })
 
 
 export const store = createStore(
-    rootReducer
+    rootReducer,
+    window.__REDUX_DEVTOOLS_EXTENSION__ &&
+    window.__REDUX_DEVTOOLS_EXTENSION__()
 )
 
-console.log(store)
-console.log(store/getState()) 
-console.log(rootReducer)
