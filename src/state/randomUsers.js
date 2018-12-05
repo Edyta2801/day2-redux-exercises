@@ -1,5 +1,11 @@
 const INITIAL_STATE = {
-    users: []
+    users: [{
+        name:
+        {first:'Ala'}
+    }
+
+
+    ]
 }
 export default (state = INITIAL_STATE, action) => {
     switch (action.type) {
