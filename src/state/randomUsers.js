@@ -1,15 +1,26 @@
 const SET_USERS = 'randomUsers/SET_USERS'
+const START_FETCHING = 'randomUsers/START_USERS'
+const STOP_FETCHING = 'randomUsers/STOP_USERS'
+const ERROR_FETCHING = 'randomUsers/ERROR_USERS'
 
 
-export const fetchUsersAsyncAction=()=>(dispatch, getState)=>{
+export const fetchUsersAsyncAction = () => (dispatch, getState) => {
+    dispatch(startFetchingAction())
     fetch('https://randomuser.me/api')
-    .then(r => r.json())
-    .then(data => {
-      dispatch(
-        setUsersAction(data.results)
-      )
-    })
+        .then(r => r.json())
+        .then(data => {
+            dispatch(setUsersAction(data.results))
+            dispatch(stopFetchingAction())
+
+        })
+        .catch(() => {
+            dispatch(errorFetchingAction())
+        })
 }
+
+const startFetchingAction = () => ({ type: START_FETCHING })
+const stopFetchingAction = () => ({ type: STOP_FETCHING })
+const errorFetchingAction = () => ({ type: ERROR_FETCHING })
 
 
 const setUsersAction = users => ({
@@ -19,10 +30,12 @@ const setUsersAction = users => ({
 
 
 const INITIAL_STATE = {
-    users:[]
+    users: [],
+    isFetching: false,
+    isError: false
 
 
-    
+
 }
 export default (state = INITIAL_STATE, action) => {
     switch (action.type) {
@@ -30,6 +43,24 @@ export default (state = INITIAL_STATE, action) => {
             return {
                 ...state,
                 users: action.users
+            }
+        case START_FETCHING:
+            return {
+                ...state,
+                isFetching: true,
+                isError: false,
+            }
+        case STOP_FETCHING:
+            return {
+                ...state,
+                isFetching: false,
+                isError: false,
+            }
+        case ERROR_FETCHING:
+            return {
+                ...state,
+                isFetching: false,
+                isError: true,
             }
 
 
