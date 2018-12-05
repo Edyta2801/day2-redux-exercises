@@ -26,3 +26,4 @@ store.dispatch(
     }])
 )
 
+store.dispatch(fetchUsersAsyncAction())
