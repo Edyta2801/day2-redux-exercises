@@ -15,13 +15,20 @@ class RandomUsers extends React.Component {
         return (
             <div>
                 {
-                    this._isError ?
-                        'Sorry, an error!'
+                    this.props._isError ?
+                    <div>
+                        Sorry, an error!
+                        <button
+                        onClick={()=>this.props._fetchUsersAction('https://randomuser.me/api')}
+                        >
+                            Try again!
+                        </button>
+                        </div>
                         :
-                        this.isFetching ?
+                        this.props._isFetching ?
                             'Loading...'
                             :
-                            this._users.map(
+                            this.props._users.map(
                                 user => <div>{user.name.first}</div>
                             )
                 }
